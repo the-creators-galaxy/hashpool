@@ -45,7 +45,7 @@ The project contains a limited number of integration tests, please see the `test
 The following related JavaScript NPM packages are also under co-devlopment and are designed to aid in the creation of hedera transactions and interaction with instances of this hashpool and a standard hedera mirror node:
 
 
-* [@bugbytes/hapi-mempool](https://www.npmjs.com/package/@bugbytes/hapi-mempool)  
+* [@bugbytes/hapi-hashpool](https://www.npmjs.com/package/@bugbytes/hapi-hashpool)  
 
   Provides a helper client for interacting with Hashpool REST server.
 
