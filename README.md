@@ -10,6 +10,16 @@ It also provides methods to add signatures to pending transactions, facilitating
 
 When deployed, this software exposes a REST API endpoint that accepts HAPI protobuf encoded transactions as POST requests.  Upon receiving a POST request containing the encoded bytes representing a `SignedTransaction` structure; it decodes this structure, examining the transaction itself and enumerating the signatures included in the data.  If the system recognizes the transaction as valid, it then determines if the transaction’s start time requires immediate forwarding to the appropriate Hedera gossip node; or if the transaction should be held in memory until such time the transaction is in the valid window of submission.  For transactions held in memory waiting for their start times, external parties can call additional methods to add signatures to existing transactions.  In this way it is possible to orchestrate the signing of arbitrary Hedera transactions by multiple parties.  
 
+### Endpoint Operations
+| Endpoint | Description |
+| -------- | ----------- |
+| /Info |	Retrieves information about this instance of the Hashpool, including the addresses of known Hedera gossip gRPC nodes that it is capable of submitting transactions to. |
+| /Transactions |	Retrieves the list of pending transactions (GET) or accepts new pending transactions (POST) for processing and possibly temporary holding before submitting to the proper Hedera gossip node. |
+| /Transactions/{id}/receipt | Asks the Hedera network for the receipt for a given transaction (GET), assuming it has been submitted. |
+| /Transactions/{id}/protobuf	| Retrieves (GET) the serialized protobuf representation of a given transaction.  Wallets can retrieve the transaction, examine it, sign it, and then add their signature to the pending transaction. |
+| /Transactions/{id}/signatures |	Adds a signature (POST) to a pending tansaction. |
+
+
 **Please note:**  Since this project is a work in progress and a naive implementation, it can be attacked in many ways, including signature poisoning (deliberate attempts to provide invalid signatures) and denial of service attacks.  Future work will include mitigation of these vulnerabilities.  Additionally, it provides no persistence across restarts, all information is held in memory, a future version may be written that additionally relies on storage allowing pending transaction information to survive restarts.
 
 ## Quick Start
